@@ -1,7 +1,7 @@
 import { Component, define, html, css } from 'mini';
 import { shared } from '../styles/shared.js';
 import { icon } from '../lib/icons.js';
-import { searchApi } from '../api/index.js';
+import { searchApi, isCancel } from '../api/index.js';
 import { debounce } from '../lib/format.js';
 import { router } from '../router.js';
 
@@ -91,7 +91,7 @@ class SearchBox extends Component {
       const { suggestions } = await searchApi.suggest(this.typed, this.ctrl.signal);
       this.setState({ items: suggestions, active: -1, open: this.state.focused });
     } catch (e) {
-      if (e.name !== 'AbortError') console.warn(e);
+      if (!isCancel(e)) console.warn(e);
     }
   }, 100);
 

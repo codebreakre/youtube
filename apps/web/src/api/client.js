@@ -1,7 +1,7 @@
-// Low-level HTTP client shared by every API module in this folder.
-// Pages and components should import from '../api/index.js', not call this directly.
-
-const BASE = '/api';
+// The configured HTTP client shared by every API module in this folder.
+// It uses @vidora/http (packages/http), our axios-style library. The syntax is the same as axios.
+// Pages and components import from '../api/index.js', never from here.
+import http from '@vidora/http';
 
 // Anonymous identity: a random id per browser, sent with every request as X-User-Id.
 const uid = (() => {
@@ -19,38 +19,26 @@ const uid = (() => {
   }
 })();
 
-export class ApiError extends Error {
-  constructor(message, status) {
-    super(message);
-    this.status = status;
-  }
-}
+export const client = http.create({
+  baseURL: '/api',
+  timeout: 15000,
+});
 
-/** Encode a single path segment (video ids, list ids, ...). */
-export const seg = (s) => encodeURIComponent(s);
+// Every request carries the anonymous user id.
+client.interceptors.request.use((config) => {
+  config.headers['X-User-Id'] = uid;
+  return config;
+});
 
-/**
- * Send a request to the backend.
- * - `body` that is a Blob is sent as-is; anything else is JSON-encoded.
- * - Resolves with the parsed JSON (or null for 204), rejects with ApiError.
- */
-export async function request(path, { method = 'GET', body, signal, keepalive } = {}) {
-  const headers = { 'X-User-Id': uid };
-  let payload;
-  if (body instanceof Blob) {
-    headers['Content-Type'] = body.type || 'application/octet-stream';
-    payload = body;
-  } else if (body !== undefined) {
-    headers['Content-Type'] = 'application/json';
-    payload = JSON.stringify(body);
-  }
-  const res = await fetch(BASE + path, { method, signal, keepalive, headers, body: payload });
-  if (!res.ok) {
-    let message = res.statusText;
-    try {
-      message = (await res.json()).error || message;
-    } catch {}
-    throw new ApiError(message, res.status);
-  }
-  return res.status === 204 ? null : res.json();
-}
+// Use the server's { error: "..." } message, so pages can show e.message as is.
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const serverMessage = error.response?.data?.error;
+    if (serverMessage) error.message = serverMessage;
+    return Promise.reject(error);
+  },
+);
+
+export const isCancel = http.isCancel;
+export const isHttpError = http.isHttpError;

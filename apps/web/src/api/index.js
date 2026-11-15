@@ -1,14 +1,16 @@
-// Every backend call the web app makes lives in this folder, grouped by resource.
+// Every backend call the web app makes is in this folder: one file = one request.
 //
-//   videos.js     catalog, related videos, views, thumbnails
-//   search.js     search results, autocomplete suggestions, past searches
-//   user.js       the current user (lists + resume progress)
-//   history.js    watch history and resume positions
-//   playlists.js  Watch later / Liked videos
-//   client.js     shared fetch wrapper (X-User-Id header, JSON, errors)
-export { ApiError } from './client.js';
-export { videosApi } from './videos.js';
-export { searchApi } from './search.js';
-export { userApi } from './user.js';
-export { historyApi } from './history.js';
-export { playlistsApi } from './playlists.js';
+//   client.js                    the configured @vidora/http instance (baseURL, user id, error messages)
+//   videos/     getVideos, getVideo, getRelatedVideos, addView, uploadThumbnail
+//   search/     searchVideos, getSuggestions, removeSearch
+//   user/       getMe
+//   history/    getHistory, addToHistory, saveProgress, removeFromHistory, clearHistory
+//   playlists/  getPlaylist, addToPlaylist, removeFromPlaylist
+//
+// Each folder's index.js groups its requests into one object (videosApi, searchApi, ...).
+export { client, isCancel, isHttpError } from './client.js';
+export { videosApi } from './videos/index.js';
+export { searchApi } from './search/index.js';
+export { userApi } from './user/index.js';
+export { historyApi } from './history/index.js';
+export { playlistsApi } from './playlists/index.js';

@@ -1,0 +1,8 @@
+{
+  "name": "@vidora/http",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tiny axios-compatible HTTP client built on fetch: instances, interceptors, transforms, timeouts, cancellation",
+  "type": "module",
+  "exports": "./src/index.js"
+}

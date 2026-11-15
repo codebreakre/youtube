@@ -1,6 +1,6 @@
 import http from 'node:http';
 import path from 'node:path';
-import { PORT, HOST, WEB_DIR, MINI_DIR, THUMBS_DIR } from './config.js';
+import { PORT, HOST, WEB_DIR, MINI_DIR, HTTP_DIR, THUMBS_DIR } from './config.js';
 import { HttpError, sendJson } from './lib/http.js';
 import { serveFile } from './lib/static.js';
 import { api } from './api.js';
@@ -30,6 +30,7 @@ async function handle(req, res) {
 
   // ---- static assets
   if (pathname.startsWith('/mini/') && (await serveFile(req, res, MINI_DIR, pathname.slice(6)))) return;
+  if (pathname.startsWith('/http/') && (await serveFile(req, res, HTTP_DIR, pathname.slice(6)))) return;
   if (pathname.startsWith('/src/') && (await serveFile(req, res, path.join(WEB_DIR, 'src'), pathname.slice(5)))) return;
   if (
     pathname.startsWith('/media/thumbs/') &&

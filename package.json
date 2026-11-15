@@ -13,6 +13,7 @@
     "dev": "node --watch apps/server/src/index.js",
     "seed": "node scripts/seed.js",
     "seed:all": "node scripts/seed.js --all",
+    "reset": "node scripts/reset.js",
     "test": "node --test \"packages/*/test/*.test.js\" \"apps/*/test/*.test.js\""
   },
   "engines": {
