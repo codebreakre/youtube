@@ -1,0 +1,10 @@
+{
+  "name": "@vidora/web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend SPA built from custom web components on @vidora/mini (no build step, native ES modules)",
+  "type": "module",
+  "dependencies": {
+    "@vidora/mini": "*"
+  }
+}

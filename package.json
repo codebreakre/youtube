@@ -1,0 +1,21 @@
+{
+  "name": "vidora",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A video streaming platform built with a home-made web-component framework. Zero dependencies.",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "node apps/server/src/index.js",
+    "dev": "node --watch apps/server/src/index.js",
+    "seed": "node scripts/seed.js",
+    "seed:all": "node scripts/seed.js --all",
+    "test": "node --test \"packages/*/test/*.test.js\" \"apps/*/test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

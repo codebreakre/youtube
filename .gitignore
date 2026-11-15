@@ -1,0 +1,6 @@
+node_modules/
+apps/server/media/
+apps/server/data/db.json
+apps/server/data/db.json.tmp
+*.part
+.DS_Store

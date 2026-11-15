@@ -1,0 +1,8 @@
+{
+  "name": "@vidora/mini",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tiny web-component framework: Component base class, html templates, DOM morphing, store, router",
+  "type": "module",
+  "exports": "./src/index.js"
+}

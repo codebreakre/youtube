@@ -1,0 +1,64 @@
+/* Design tokens. CSS custom properties inherit through shadow roots, so every component uses these. */
+:root {
+  color-scheme: light;
+  --font: 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --topbar-h: 56px;
+
+  --bg: #ffffff;
+  --bg-raised: #ffffff;
+  --bg-soft: rgba(0, 0, 0, 0.05);
+  --bg-hover: rgba(0, 0, 0, 0.1);
+  --text: #0f0f0f;
+  --text-2: #606060;
+  --border: rgba(0, 0, 0, 0.1);
+  --input-bg: #ffffff;
+  --input-border: #d3d3d3;
+  --search-btn: #f8f8f8;
+  --chip-active-bg: #0f0f0f;
+  --chip-active-text: #ffffff;
+  --accent: #ff2d55;
+  --link: #065fd4;
+  --shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
+  --skeleton: rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f0f0f;
+  --bg-raised: #212121;
+  --bg-soft: rgba(255, 255, 255, 0.1);
+  --bg-hover: rgba(255, 255, 255, 0.2);
+  --text: #f1f1f1;
+  --text-2: #aaaaaa;
+  --border: rgba(255, 255, 255, 0.2);
+  --input-bg: #121212;
+  --input-border: #303030;
+  --search-btn: #222222;
+  --chip-active-bg: #f1f1f1;
+  --chip-active-text: #0f0f0f;
+  --link: #3ea6ff;
+  --shadow: 0 4px 32px rgba(0, 0, 0, 0.6);
+  --skeleton: rgba(255, 255, 255, 0.08);
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  overflow-y: scroll;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+app-root {
+  display: block;
+}
